@@ -15,6 +15,26 @@ function ensurePostsDirectory(): boolean {
 }
 
 /**
+ * ファイル名からslugを生成
+ * 例: 2024-01-15-first-post.md → first-post
+ * @param fileName ファイル名（拡張子なし）
+ * @returns slug文字列
+ */
+function generateSlugFromFileName(fileName: string): string {
+  const parts = fileName.split('-');
+  // 日付部分（YYYY-MM-DD）を除去
+  if (
+    parts.length >= 4 &&
+    /^\d{4}$/.test(parts[0]) &&
+    /^\d{2}$/.test(parts[1]) &&
+    /^\d{2}$/.test(parts[2])
+  ) {
+    return parts.slice(3).join('-');
+  }
+  return fileName;
+}
+
+/**
  * すべての記事のslugを取得
  * @returns slug文字列の配列
  */
@@ -27,14 +47,8 @@ export function getPostSlugs(): string[] {
   return files
     .filter((file) => file.endsWith('.md'))
     .map((file) => {
-      // ファイル名からslugを生成（例: 2024-01-15-first-post.md → first-post）
       const fileName = file.replace(/\.md$/, '');
-      const parts = fileName.split('-');
-      // 日付部分（YYYY-MM-DD）を除去
-      if (parts.length >= 4 && /^\d{4}$/.test(parts[0]) && /^\d{2}$/.test(parts[1]) && /^\d{2}$/.test(parts[2])) {
-        return parts.slice(3).join('-');
-      }
-      return fileName;
+      return generateSlugFromFileName(fileName);
     });
 }
 
@@ -52,10 +66,7 @@ export function getPostBySlug(slug: string): Post | null {
   const matchingFile = files.find((file) => {
     if (!file.endsWith('.md')) return false;
     const fileName = file.replace(/\.md$/, '');
-    const parts = fileName.split('-');
-    const fileSlug = parts.length >= 4 && /^\d{4}$/.test(parts[0]) && /^\d{2}$/.test(parts[1]) && /^\d{2}$/.test(parts[2])
-      ? parts.slice(3).join('-')
-      : fileName;
+    const fileSlug = generateSlugFromFileName(fileName);
     return fileSlug === slug;
   });
 
@@ -101,21 +112,8 @@ export function getAllPosts(): PostPreview[] {
   const posts = files
     .filter((file) => file.endsWith('.md'))
     .map((file) => {
-      // ファイル名からslugを生成（例: 2024-01-15-first-post.md → first-post）
       const fileName = file.replace(/\.md$/, '');
-      const parts = fileName.split('-');
-      // 日付部分（YYYY-MM-DD）を除去
-      let slug: string;
-      if (
-        parts.length >= 4 &&
-        /^\d{4}$/.test(parts[0]) &&
-        /^\d{2}$/.test(parts[1]) &&
-        /^\d{2}$/.test(parts[2])
-      ) {
-        slug = parts.slice(3).join('-');
-      } else {
-        slug = fileName;
-      }
+      const slug = generateSlugFromFileName(fileName);
 
       const fullPath = path.join(postsDirectory, file);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
