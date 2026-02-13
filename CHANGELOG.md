@@ -17,7 +17,7 @@
   - Markdown → HTML変換（unified、remark、rehype）
   - シンタックスハイライト対応（rehype-prism-plus）
   - フロントマター解析（gray-matter）
-  - 記事検索機能（タイトル、説明、タグによる検索）
+  - 記事検索ユーティリティ（タイトル、説明、タグによる検索機能）
   - ブログコンポーネント（BlogCard、BlogList、MarkdownContent）
   - 記事メタデータ管理（タイトル、日付、著者、タグ、説明、公開フラグ）
   - レスポンシブデザイン対応

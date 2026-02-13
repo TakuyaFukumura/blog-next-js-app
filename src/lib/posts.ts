@@ -90,7 +90,7 @@ export function getPostBySlug(slug: string): Post | null {
     title: metadata.title || 'タイトルなし',
     date: metadata.date || new Date().toISOString(),
     author: metadata.author || '著者不明',
-    tags: metadata.tags || [],
+    tags: Array.isArray(metadata.tags) ? metadata.tags : [],
     description: metadata.description || '',
     image: metadata.image,
     published: metadata.published === undefined ? true : metadata.published,

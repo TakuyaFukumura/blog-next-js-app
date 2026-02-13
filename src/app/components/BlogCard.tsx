@@ -20,10 +20,11 @@ export default function BlogCard({ post }: BlogCardProps) {
           
           <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-3">
             <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString('ja-JP', {
+              {new Date(post.date + 'T00:00:00Z').toLocaleDateString('ja-JP', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
+                timeZone: 'UTC',
               })}
             </time>
             <span className="mx-2">•</span>
