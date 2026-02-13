@@ -1,6 +1,7 @@
 'use client';
 
 import {useDarkMode} from './DarkModeProvider';
+import Link from 'next/link';
 
 export default function Header() {
     const {theme, setTheme} = useDarkMode();
@@ -35,10 +36,20 @@ export default function Header() {
             border-gray-200 dark:border-gray-700 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center">
-                        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                            blog-next-js-app
-                        </h1>
+                    <div className="flex items-center gap-8">
+                        <Link href="/">
+                            <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+                                blog-next-js-app
+                            </h1>
+                        </Link>
+                        <nav className="hidden sm:flex gap-6">
+                            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                ホーム
+                            </Link>
+                            <Link href="/blog" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                ブログ
+                            </Link>
+                        </nav>
                     </div>
 
                     <div className="flex items-center">
