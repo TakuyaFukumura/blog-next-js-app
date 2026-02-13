@@ -6,12 +6,12 @@ import { Post, PostMetadata, PostPreview } from '@/types/post';
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 /**
- * postsディレクトリが存在するか確認し、なければ作成する
+ * postsディレクトリの存在確認
+ * サーバレス環境では実行時に書き込めないため、存在しない場合はエラーではなく
+ * 空配列を返すよう呼び出し側で対処する
  */
-function ensurePostsDirectory() {
-  if (!fs.existsSync(postsDirectory)) {
-    fs.mkdirSync(postsDirectory, { recursive: true });
-  }
+function ensurePostsDirectory(): boolean {
+  return fs.existsSync(postsDirectory);
 }
 
 /**
@@ -19,7 +19,9 @@ function ensurePostsDirectory() {
  * @returns slug文字列の配列
  */
 export function getPostSlugs(): string[] {
-  ensurePostsDirectory();
+  if (!ensurePostsDirectory()) {
+    return [];
+  }
   
   const files = fs.readdirSync(postsDirectory);
   return files
@@ -42,7 +44,9 @@ export function getPostSlugs(): string[] {
  * @returns Post オブジェクトまたはnull
  */
 export function getPostBySlug(slug: string): Post | null {
-  ensurePostsDirectory();
+  if (!ensurePostsDirectory()) {
+    return null;
+  }
   
   const files = fs.readdirSync(postsDirectory);
   const matchingFile = files.find((file) => {
@@ -88,22 +92,56 @@ export function getPostBySlug(slug: string): Post | null {
  * @returns Post配列（日付の降順でソート）
  */
 export function getAllPosts(): PostPreview[] {
-  ensurePostsDirectory();
+  if (!ensurePostsDirectory()) {
+    return [];
+  }
   
-  const slugs = getPostSlugs();
-  const posts = slugs
-    .map((slug) => getPostBySlug(slug))
-    .filter((post): post is Post => post !== null)
-    .map((post) => ({
-      slug: post.slug,
-      title: post.title,
-      date: post.date,
-      author: post.author,
-      tags: post.tags,
-      description: post.description,
-      image: post.image,
-      published: post.published,
-    }))
+  const files = fs.readdirSync(postsDirectory);
+
+  const posts = files
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => {
+      // ファイル名からslugを生成（例: 2024-01-15-first-post.md → first-post）
+      const fileName = file.replace(/\.md$/, '');
+      const parts = fileName.split('-');
+      // 日付部分（YYYY-MM-DD）を除去
+      let slug: string;
+      if (
+        parts.length >= 4 &&
+        /^\d{4}$/.test(parts[0]) &&
+        /^\d{2}$/.test(parts[1]) &&
+        /^\d{2}$/.test(parts[2])
+      ) {
+        slug = parts.slice(3).join('-');
+      } else {
+        slug = fileName;
+      }
+
+      const fullPath = path.join(postsDirectory, file);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data } = matter(fileContents);
+
+      const metadata = data as PostMetadata;
+
+      // 公開フラグが false の記事は除外
+      if (metadata.published === false) {
+        return null;
+      }
+
+      const preview: PostPreview = {
+        slug,
+        title: metadata.title || 'タイトルなし',
+        date: metadata.date || new Date().toISOString(),
+        author: metadata.author || '著者不明',
+        tags: Array.isArray(metadata.tags) ? metadata.tags : [],
+        description: metadata.description || '',
+        image: metadata.image,
+        published: metadata.published === undefined ? true : metadata.published,
+      };
+
+      return preview;
+    })
+    .filter((post): post is PostPreview => post !== null)
     .sort((a, b) => {
       // 日付の降順でソート
       return new Date(b.date).getTime() - new Date(a.date).getTime();

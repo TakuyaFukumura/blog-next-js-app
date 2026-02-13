@@ -4,7 +4,7 @@ interface MarkdownContentProps {
 
 /**
  * Markdownコンテンツ表示コンポーネント
- * HTML文字列を安全に表示
+ * サニタイズ済みのHTML文字列を表示（サニタイズはmarkdownToHtml内で実施）
  */
 export default function MarkdownContent({ content }: MarkdownContentProps) {
   return (

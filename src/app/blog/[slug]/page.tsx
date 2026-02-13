@@ -1,4 +1,4 @@
-import { getPostBySlug, getPostSlugs } from '@/lib/posts';
+import { getAllPosts, getPostBySlug } from '@/lib/posts';
 import { markdownToHtml } from '@/lib/markdown';
 import MarkdownContent from '@/app/components/MarkdownContent';
 import { Metadata } from 'next';
@@ -6,18 +6,19 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
 interface BlogPostPageProps {
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
+  };
 }
 
 /**
  * 静的パスを生成
+ * 公開済みの記事のみを対象とする
  */
 export async function generateStaticParams() {
-  const slugs = getPostSlugs();
-  return slugs.map((slug) => ({
-    slug,
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
   }));
 }
 
@@ -25,7 +26,7 @@ export async function generateStaticParams() {
  * メタデータを生成
  */
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug } = params;
   const post = getPostBySlug(slug);
 
   if (!post) {
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
  * ブログ記事詳細ページ
  */
 export default async function BlogPost({ params }: BlogPostPageProps) {
-  const { slug } = await params;
+  const { slug } = params;
   const post = getPostBySlug(slug);
 
   if (!post) {
