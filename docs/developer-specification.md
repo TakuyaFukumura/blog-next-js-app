@@ -268,14 +268,17 @@ React Context APIを使用したダークモードの状態管理を提供しま
 **機能:**
 - テーマの状態管理（light/dark）
 - localStorageへの永続化
-- システム設定の自動検出（初回訪問時）
+- 初期値は 'light'（localStorage に保存がない場合）
 - `<html>`要素への`class`属性追加/削除
 
 ```typescript
-export const useDarkMode = () => {
+export function useDarkMode() {
   const context = useContext(DarkModeContext);
-  return { theme, setTheme };
-};
+  if (context === undefined) {
+    throw new Error('useDarkMode must be used within a DarkModeProvider');
+  }
+  return context; // { theme, setTheme, isDark }
+}
 ```
 
 #### `BlogList.tsx` - 記事一覧コンポーネント
@@ -439,8 +442,7 @@ interface MarkdownContentProps {
                  ▼
 ┌─────────────────────────────────────────────┐
 │ 2. localStorageから theme を読み込み         │
-│    - なければシステム設定を検出               │
-│    - window.matchMedia('prefers-color-scheme')│
+│    - なければ 'light' を初期値として使用      │
 └────────────────┬────────────────────────────┘
                  │
                  ▼
@@ -630,6 +632,8 @@ npm run test:coverage
 
 ### CI実行内容
 
+**注意**: 実際の `.github/workflows/ci.yml` では、GitHub Actions のバージョンはセキュリティのためコミット SHA で固定されています（例: `actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd`）。以下は説明のため簡略化した表記です。
+
 ```yaml
 jobs:
   test:
@@ -640,8 +644,8 @@ jobs:
         node-version: [20.x]
     
     steps:
-      1. コードのチェックアウト (actions/checkout@v6.0.2)
-      2. Node.js セットアップ (actions/setup-node@v6.2.0)
+      1. コードのチェックアウト (actions/checkout@de0fac... # v6.0.2)
+      2. Node.js セットアップ (actions/setup-node@6044e13... # v6.2.0)
       3. 依存関係のインストール (npm ci)
       4. ESLint実行 (npm run lint)
       5. ビルド実行（型チェック含む）(npm run build)
@@ -683,9 +687,22 @@ jobs:
 3. 自動的にビルド・デプロイが実行される
 
 #### 2. Netlify
-- **特徴**: 静的サイトホスティングに特化
-- **デプロイコマンド**: `npm run build`
-- **公開ディレクトリ**: `.next/`
+- **特徴**: 静的サイトホスティングに特化。Next.js アプリは Netlify の Next.js Runtime（ビルトイン機能）で動作させることを想定。
+- **ビルドコマンド**: `npm run build`
+- **公開ディレクトリ**:
+  - SSR / ISR など、通常の Next.js アプリとしてデプロイする場合: Netlify の Next.js サポートにより自動的に処理されるため、明示的な公開ディレクトリ指定は不要（Netlify ダッシュボードの Publish directory は空欄でも可）。
+  - 静的エクスポート（`output: 'export'` を `next.config.ts` に設定）で完全静的サイトとしてホスティングする場合: `out/` を公開ディレクトリとして指定。
+- **追加設定（任意）**:
+  - より細かい制御が必要な場合のみ、プロジェクト直下に `netlify.toml` を作成し、`[build]` セクションで `command` や `publish` を設定する。
+  - 例（静的エクスポートを行う場合）:
+
+    ```toml
+    [build]
+      command = "npm run build"
+      publish = "out"
+    ```
+
+  - Next.js Runtime は Netlify に統合されているため、基本的には追加プラグインのインストールは不要です（Netlify 側で Next.js フレームワークを選択するだけで利用可能）。
 
 #### 3. カスタムサーバー
 Node.jsサーバーで実行する場合:
@@ -699,7 +716,7 @@ npm start
 ```
 
 ### ビルド最適化
-- **静的エクスポート**: 全ページをビルド時に生成（SSG）
+- **静的サイト生成（SSG）**: `generateStaticParams()` などを用いて、ビルド時に事前レンダリング可能なページを生成
 - **画像最適化**: Next.js Image Optimizationの活用（必要に応じて）
 - **コード分割**: 自動的にページ単位でバンドルを分割
 
