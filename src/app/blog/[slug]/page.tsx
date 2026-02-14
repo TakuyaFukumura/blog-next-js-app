@@ -26,7 +26,7 @@ export async function generateStaticParams() {
  * メタデータを生成
  */
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
  * ブログ記事詳細ページ
  */
 export default async function BlogPost({ params }: BlogPostPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const post = getPostBySlug(slug);
 
   if (!post) {
