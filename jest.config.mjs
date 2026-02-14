@@ -33,6 +33,11 @@ const config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+
+  // ESM modules to transform
+  transformIgnorePatterns: [
+    'node_modules/(?!(unified|remark-parse|remark-rehype|rehype-stringify|rehype-prism-plus|rehype-sanitize|hast-util-sanitize|vfile|unist-util-stringify-position|bail|is-plain-obj|trough|mdast-util-from-markdown|mdast-util-to-markdown|mdast-util-to-hast|hast-util-to-html|micromark|decode-named-character-reference|character-entities|@types/mdast|@types/hast|@types/unist)/)',
+  ],
   
   // テスト実行前の環境変数設定
   testEnvironmentOptions: {

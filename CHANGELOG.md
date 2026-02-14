@@ -7,9 +7,37 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-02-13
+
 ### 追加
 
-- CHANGELOG.mdを導入
+- Markdownファイルベースのブログ表示機能
+  - ブログ記事一覧ページ（`/blog`）
+  - ブログ記事詳細ページ（`/blog/[slug]`）
+  - Markdown → HTML変換（unified、remark、rehype）
+  - シンタックスハイライト対応（rehype-prism-plus）
+  - フロントマター解析（gray-matter）
+  - 記事検索ユーティリティ（タイトル、説明、タグによる検索機能）
+  - ブログコンポーネント（BlogCard、BlogList、MarkdownContent）
+  - 記事メタデータ管理（タイトル、日付、著者、タグ、説明、公開フラグ）
+  - レスポンシブデザイン対応
+  - Tailwind Typography plugin
+  - 静的サイト生成（SSG）によるパフォーマンス最適化
+  - サンプルブログ記事3件
+  - ブログ機能のユニットテスト
+
+### 変更
+
+- ホームページをブログアプリケーション用に刷新
+- ヘッダーにナビゲーションリンクを追加（ホーム、ブログ）
+- アプリケーションメタデータの更新
+
+### 削除
+
+- SQLiteデータベース機能（better-sqlite3）
+- データベースAPIエンドポイント（`/api/message`）
+- データベース関連のテストとファイル
+- 実装仕様書（docsディレクトリ）
 
 ## [0.1.0] - 2026-02-13
 
@@ -43,5 +71,6 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0^...v0.1.0
