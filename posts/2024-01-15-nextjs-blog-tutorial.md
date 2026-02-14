@@ -2,7 +2,7 @@
 title: "Next.jsでブログを作る方法"
 date: "2024-01-15"
 author: "ブログ管理者"
-tags: ["Next.js", "React", "TypeScript", "ブログ"]
+tags: [ "Next.js", "React", "TypeScript", "ブログ" ]
 description: "Next.jsとMarkdownを使用してシンプルなブログアプリケーションを構築する方法を解説します。"
 published: true
 ---
@@ -36,15 +36,15 @@ import path from 'path';
 import matter from 'gray-matter';
 
 export function getPostBySlug(slug: string) {
-  const fullPath = path.join('posts', `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
-  
-  return {
-    slug,
-    ...data,
-    content,
-  };
+    const fullPath = path.join('posts', `${slug}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const {data, content} = matter(fileContents);
+
+    return {
+        slug,
+        ...data,
+        content,
+    };
 }
 ```
 
