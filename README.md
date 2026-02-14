@@ -1,6 +1,6 @@
 # blog-next-js-app
 
-Next.jsを使ったシンプルなアプリケーションです。
+Next.jsを使ったMarkdownベースのブログアプリケーションです。
 
 ## 技術スタック
 
@@ -8,7 +8,9 @@ Next.jsを使ったシンプルなアプリケーションです。
 - **React 19.2.4** - ユーザーインターフェース構築
 - **TypeScript** - 型安全性
 - **Tailwind CSS 4** - スタイリング
-- **SQLite** - データベース（better-sqlite3）
+- **Markdown処理** - unified、remark、rehypeによるMarkdown変換
+- **シンタックスハイライト** - rehype-prism-plusによるコードハイライト
+- **gray-matter** - Markdownフロントマター解析
 - **ESLint** - コード品質管理
 
 ## 始め方
@@ -97,61 +99,82 @@ pnpm start
 ## プロジェクト構造
 
 ```
-├── lib/
-│   └── database.ts          # SQLiteデータベース接続・操作
+├── posts/                   # Markdownブログ記事
+│   ├── 2024-01-15-nextjs-blog-tutorial.md
+│   ├── 2024-02-20-typescript-type-system.md
+│   └── 2024-03-10-tailwind-css-modern-ui.md
 ├── src/
-│   └── app/
-│       ├── api/
-│       │   └── message/
-│       │       └── route.ts # APIエンドポイント
-│       ├── components/      # Reactコンポーネント
-│       │   ├── DarkModeProvider.tsx  # ダークモードProvider
-│       │   └── Header.tsx   # ヘッダーコンポーネント
-│       ├── globals.css      # グローバルスタイル
-│       ├── layout.tsx       # アプリケーションレイアウト
-│       └── page.tsx         # メインページコンポーネント
-├── data/                    # SQLiteデータベースファイル（自動生成）
+│   ├── app/
+│   │   ├── blog/
+│   │   │   ├── [slug]/
+│   │   │   │   └── page.tsx  # ブログ記事詳細ページ
+│   │   │   └── page.tsx      # ブログ記事一覧ページ
+│   │   ├── components/       # Reactコンポーネント
+│   │   │   ├── BlogCard.tsx  # ブログカードコンポーネント
+│   │   │   ├── BlogList.tsx  # ブログリストコンポーネント
+│   │   │   ├── DarkModeProvider.tsx  # ダークモードProvider
+│   │   │   ├── Header.tsx    # ヘッダーコンポーネント
+│   │   │   └── MarkdownContent.tsx   # Markdownコンテンツレンダー
+│   │   ├── globals.css       # グローバルスタイル
+│   │   ├── layout.tsx        # アプリケーションレイアウト
+│   │   └── page.tsx          # ホームページ
+│   ├── lib/
+│   │   ├── markdown.ts       # Markdown処理ユーティリティ
+│   │   └── posts.ts          # ブログ記事取得ユーティリティ
+│   └── types/                # TypeScript型定義
+├── __tests__/                # テストファイル
 ├── package.json
 ├── next.config.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 ```
 
-## API エンドポイント
+## 機能
 
-### GET /api/message
+### ブログ機能
 
-データベースから最新のメッセージを取得します。
+- **記事一覧ページ** (`/blog`): すべてのブログ記事を一覧表示
+- **記事詳細ページ** (`/blog/[slug]`): 個別の記事を表示
+- **Markdown対応**: Markdownファイルから記事を自動生成
+- **フロントマター**: 記事メタデータ（タイトル、日付、著者、タグ、説明）の管理
+- **シンタックスハイライト**: コードブロックの自動ハイライト
+- **レスポンシブデザイン**: モバイル・デスクトップ対応
+- **静的サイト生成（SSG）**: ビルド時に記事を事前レンダリング
+- **ダークモード**: システム設定に基づく自動切り替え
 
-**レスポンス:**
+### 記事の追加方法
 
-```json
-{
-  "message": "Hello, world."
-}
+1. `posts/` ディレクトリに新しいMarkdownファイルを作成（ファイル名は `YYYY-MM-DD-slug.md` 形式を推奨）
+2. フロントマターを記述：
+
+```markdown
+---
+title: "記事のタイトル"
+date: "2024-01-15"
+author: "著者名"
+tags: ["タグ1", "タグ2"]
+description: "記事の説明"
+published: true
+---
+
+# 記事の内容
+
+ここに記事の本文を書きます。
 ```
 
-## データベース
-
-SQLiteデータベースは初回起動時に自動的に作成されます：
-
-- データベースファイル: `data/app.db`
-- テーブル: `messages`
-    - `id`: 自動増分プライマリーキー
-    - `content`: メッセージ内容
-    - `created_at`: 作成日時
+3. 開発サーバーを再起動して変更を確認
 
 ## カスタマイズ
-
-### メッセージの変更
-
-データベース内のメッセージを変更したい場合は、
-SQLiteクライアントを使用して `data/app.db` ファイル内の `messages` テーブルを編集してください。
 
 ### スタイルの変更
 
 スタイルは Tailwind CSS を使用しています。
-`src/app/page.tsx` ファイル内のクラス名を変更することで、外観をカスタマイズできます。
+各コンポーネントファイル内のクラス名を変更することで、外観をカスタマイズできます。
+
+### Markdown処理のカスタマイズ
+
+`src/lib/markdown.ts` ファイルで、Markdownの処理方法をカスタマイズできます。
+rehypeやremarkのプラグインを追加することで、機能を拡張できます。
 
 ## 開発
 
@@ -191,13 +214,15 @@ npm run test:coverage
 
 #### テストファイルの構成
 
-- `__tests__/lib/database.test.ts`: データベース機能のテスト
-- `__tests__/src/app/components/DarkModeProvider.test.tsx`: ダークモードProvider のテスト
-- `__tests__/src/app/components/Header.test.tsx`: ヘッダーコンポーネントのテスト
+- `__tests__/src/lib/posts.test.ts`: ブログ記事取得機能のテスト
+- `__tests__/src/lib/markdown-integration.test.ts`: Markdown処理の統合テスト
+- `__tests__/src/app/components/`: コンポーネントのテスト
+  - `DarkModeProvider.test.tsx`: ダークモードProviderのテスト
+  - `Header.test.tsx`: ヘッダーコンポーネントのテスト
 
 #### テストの特徴
 
-- **データベーステスト**: SQLiteを使用した実際のデータベース操作のテスト
+- **ブログ機能テスト**: Markdown記事の読み込み、解析、表示のテスト
 - **Reactコンポーネントテスト**: React Testing Library を使用したコンポーネントのレンダリングとインタラクションのテスト
 - **モッキング**: localStorage や外部依存関係のモック
 - **カバレッジ**: コードカバレッジの測定と報告
@@ -251,10 +276,16 @@ CIでは以下のチェックが行われます：
 
 ## トラブルシューティング
 
-### データベース関連のエラー
+### ビルドエラー
 
-- `data/` フォルダが存在しない場合、自動的に作成されます
-- データベースファイルが破損した場合は、`data/app.db` を削除して再起動してください
+- Markdownファイルのフロントマターが正しい形式かチェックしてください
+- 記事を非表示にしたい場合は、フロントマターに `published: false` を設定してください（未指定の場合は表示されます）
+
+### 記事が表示されない
+
+- `posts/` ディレクトリにMarkdownファイルが配置されているか確認してください
+- ファイルのフロントマターに `published: false` が設定されていないか確認してください（`published: false` の記事は非表示になります）
+- 開発サーバーを再起動してみてください
 
 ### ポート競合
 
