@@ -28,7 +28,7 @@ describe('Header', () => {
         it('ヘッダータイトルが表示される', () => {
             renderWithProvider();
 
-            expect(screen.getByText('blog-next-js-app')).toBeInTheDocument();
+            expect(screen.getByText('blog')).toBeInTheDocument();
         });
 
         it('ヘッダーのHTML構造が正しい', () => {
