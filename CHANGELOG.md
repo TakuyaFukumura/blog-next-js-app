@@ -8,6 +8,26 @@
 ## [Unreleased]
 
 
+## [0.3.0] - 2026-02-14
+
+### 削除
+
+- ホーム画面（`/`）を削除し、ブログ記事一覧を直接表示するように変更
+  - ウェルカムページを削除
+  - `/`がブログ記事一覧を表示するように変更
+  - `/blog`は`/`にリダイレクトするように変更（後方互換性のため）
+- ヘッダーナビゲーションの「ホーム」と「ブログ」リンクを削除
+  - よりシンプルなナビゲーションに変更
+  - ロゴクリックで`/`に戻る機能は維持
+- ホーム画面削除の仕様書（`docs/home-screen-removal-specification.md`）を削除
+
+### 理由
+
+- ユーザビリティの向上：余計なクリックを減らし、ユーザーがすぐにブログコンテンツにアクセスできるようにする
+- シンプル化：ブログアプリケーションとして、ホーム画面は冗長であり、直接記事一覧を表示する方が自然
+- 保守性の向上：管理するページ数を減らすことでメンテナンスが容易になる
+
+
 ## [0.2.1] - 2026-02-14
 
 ### 修正
@@ -88,6 +108,9 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0^...v0.1.0
+
