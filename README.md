@@ -215,13 +215,10 @@ npm run test:coverage
 #### テストファイルの構成
 
 - `__tests__/src/lib/posts.test.ts`: ブログ記事取得機能のテスト
-- `__tests__/src/lib/markdown.test.ts`: Markdown処理のテスト
+- `__tests__/src/lib/markdown-integration.test.ts`: Markdown処理の統合テスト
 - `__tests__/src/app/components/`: コンポーネントのテスト
   - `DarkModeProvider.test.tsx`: ダークモードProviderのテスト
   - `Header.test.tsx`: ヘッダーコンポーネントのテスト
-  - `BlogCard.test.tsx`: ブログカードのテスト
-  - `BlogList.test.tsx`: ブログリストのテスト
-  - `MarkdownContent.test.tsx`: Markdownレンダリングのテスト
 
 #### テストの特徴
 
@@ -282,12 +279,12 @@ CIでは以下のチェックが行われます：
 ### ビルドエラー
 
 - Markdownファイルのフロントマターが正しい形式かチェックしてください
-- `published: true` が設定されていない記事は表示されません
+- 記事を非表示にしたい場合は、フロントマターに `published: false` を設定してください（未指定の場合は表示されます）
 
 ### 記事が表示されない
 
 - `posts/` ディレクトリにMarkdownファイルが配置されているか確認してください
-- ファイルのフロントマターに `published: true` が設定されているか確認してください
+- ファイルのフロントマターに `published: false` が設定されていないか確認してください（`published: false` の記事は非表示になります）
 - 開発サーバーを再起動してみてください
 
 ### ポート競合
