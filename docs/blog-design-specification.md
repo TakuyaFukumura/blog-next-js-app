@@ -36,7 +36,27 @@
 - **シンタックスハイライト**: Prism.js (globals.cssでカスタマイズ)
 - **ダークモード**: Tailwind CSSのdarkモード（classベース）
 
-### 2.2 現在のスタイル分析
+### 2.2 スタイリングの仕組み
+
+Markdownファイルから変換されるHTMLは、クラス名やID属性を持たない**プレーンなHTMLタグ**（`<h1>`, `<p>`, `<table>`, `<code>`など）で構成されます。
+
+そのため、デザインの適用は以下の方法で行います：
+
+1. **Tailwind Typography (prose)の活用**:
+   - `MarkdownContent`コンポーネントのルート要素に`prose`クラスを適用
+   - `prose-{element}:{utility}`の形式でHTMLタグに対してスタイルを適用
+   - 例: `prose-h1:text-4xl` → すべての`<h1>`タグに適用
+   - 例: `prose-a:hover:text-blue-700` → すべての`<a>`タグのホバー時に適用
+
+2. **実装箇所**:
+   - `src/app/components/MarkdownContent.tsx`のクラス名として定義
+   - ルート要素の`className`属性にTailwindユーティリティクラスを列挙
+
+3. **制約事項**:
+   - 個別の要素にクラス名を付与できないため、すべての同種タグに一律適用される
+   - 特定の要素だけにスタイルを適用したい場合は、rehypeプラグインでクラス追加が必要
+
+### 2.3 現在のスタイル分析
 
 **MarkdownContent.tsx**で以下の要素が定義されています：
 
@@ -48,7 +68,7 @@
 - テーブル: ボーダー2px、灰色配色
 - 引用: 青系配色、左ボーダー
 
-### 2.3 課題
+### 2.4 課題
 
 1. **視覚階層の不明瞭さ**: 見出しレベル間の区別が弱い
 2. **余白の一貫性**: 要素間の余白（margin/padding）が統一されていない
@@ -148,7 +168,7 @@ prose-h3:text-2xl prose-h3:font-bold prose-h3:mt-8 prose-h3:mb-3
 
 #### 仕様
 - フォントサイズ: `text-base` (1rem / 16px)
-- 行間: `leading-relaxed` (1.625)
+- 行間: `leading-[1.75]` (1.75)
 - 色: `text-gray-700 dark:text-gray-300`
 - 余白: `mb-4`
 - 最大幅: コンテナ制限（prose処理）
@@ -195,7 +215,7 @@ prose-li:text-gray-700 dark:prose-li:text-gray-300
 ##### テーブルボディ (tbody/td)
 - 背景: 
   - 奇数行: `bg-white dark:bg-gray-800`
-  - 偶数行: `bg-gray-50 dark:bg-gray-750`（ストライプ）
+  - 偶数行: `bg-gray-50 dark:bg-gray-700`（ストライプ）
 - テキスト色: `text-gray-700 dark:text-gray-300`
 - パディング: `px-4 py-3`
 - ボーダー: `border-b border-gray-200 dark:border-gray-700`
@@ -207,7 +227,7 @@ prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-tab
 prose-thead:bg-gray-100 dark:prose-thead:bg-gray-700
 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-bold prose-th:text-gray-900 dark:prose-th:text-white prose-th:border-b-2 prose-th:border-gray-300 dark:prose-th:border-gray-600
 prose-tr:border-b prose-tr:border-gray-200 dark:prose-tr:border-gray-700
-prose-tr:even:bg-gray-50 dark:prose-tr:even:bg-gray-750
+prose-tr:even:bg-gray-50 dark:prose-tr:even:bg-gray-700
 prose-td:px-4 prose-td:py-3 prose-td:text-gray-700 dark:prose-td:text-gray-300
 ```
 
@@ -268,7 +288,7 @@ prose-blockquote:border-l-4 prose-blockquote:border-blue-500 dark:prose-blockquo
 
 #### 実装例
 ```tsx
-prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline prose-a:decoration-2 prose-a:decoration-blue-400/50 prose-a:underline-offset-2 prose-a:transition-colors prose-a:duration-200 hover:prose-a:text-blue-700 dark:hover:prose-a:text-blue-300
+prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:underline prose-a:decoration-2 prose-a:decoration-blue-400/50 prose-a:underline-offset-2 prose-a:transition-colors prose-a:duration-200 prose-a:hover:text-blue-700 dark:prose-a:hover:text-blue-300
 ```
 
 ### 4.8 強調表示 (Emphasis)
