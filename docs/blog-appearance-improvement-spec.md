@@ -43,7 +43,7 @@ import rehypeSanitize from 'rehype-sanitize';
 export async function markdownToHtml(markdown: string): Promise<string> {
     const result = await unified()
         .use(remarkParse)           // MarkdownをMDAST（Markdown抽象構文木）に変換
-        .use(remarkRehype)          // MDATSをHAST（HTML抽象構文木）に変換
+        .use(remarkRehype)          // MDASTをHAST（HTML抽象構文木）に変換
         .use(rehypePrism, {ignoreMissing: true})  // シンタックスハイライト追加
         .use(rehypeSanitize)        // XSS対策のためHTMLをサニタイズ
         .use(rehypeStringify)       // HASTをHTML文字列に変換
@@ -376,11 +376,11 @@ import remarkToc from 'remark-toc';
 #### 4.2.6 読了時間の推定
 
 ```typescript
-// 記事の単語数から読了時間を推定して表示
+// 記事の文字数から読了時間を推定して表示
 function estimateReadingTime(content: string): number {
-    const wordsPerMinute = 200; // 日本語の場合は文字数で計算
-    const wordCount = content.length;
-    return Math.ceil(wordCount / wordsPerMinute);
+    const charactersPerMinute = 600; // 日本語の平均的な読書速度（文字/分）
+    const characterCount = content.length;
+    return Math.ceil(characterCount / charactersPerMinute);
 }
 ```
 
