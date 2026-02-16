@@ -20,7 +20,13 @@ export default function MarkdownContent({content}: MarkdownContentProps) {
         prose-ol:text-gray-700 dark:prose-ol:text-gray-300
         prose-li:text-gray-700 dark:prose-li:text-gray-300
         prose-blockquote:border-blue-500 dark:prose-blockquote:border-blue-400
-        prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300"
+        prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300
+        prose-table:border-collapse prose-table:w-full
+        prose-th:border prose-th:border-gray-300 dark:prose-th:border-gray-700
+        prose-th:bg-gray-100 dark:prose-th:bg-gray-800
+        prose-th:p-2 prose-th:text-gray-900 dark:prose-th:text-white
+        prose-td:border prose-td:border-gray-300 dark:prose-td:border-gray-700
+        prose-td:p-2 prose-td:text-gray-700 dark:prose-td:text-gray-300"
             dangerouslySetInnerHTML={{__html: content}}
         />
     );

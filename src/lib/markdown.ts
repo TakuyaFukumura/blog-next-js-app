@@ -1,9 +1,13 @@
 import {unified} from 'unified';
 import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeSanitize from 'rehype-sanitize';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeExternalLinks from 'rehype-external-links';
 
 /**
  * MarkdownをHTMLに変換する
@@ -14,7 +18,19 @@ import rehypeSanitize from 'rehype-sanitize';
 export async function markdownToHtml(markdown: string): Promise<string> {
     const result = await unified()
         .use(remarkParse)
+        .use(remarkGfm)  // GitHub Flavored Markdown（テーブル、タスクリストなど）
         .use(remarkRehype)
+        .use(rehypeSlug)  // 見出しにIDを追加（アンカーリンク用）
+        .use(rehypeAutolinkHeadings, {  // 見出しにリンクを追加
+            behavior: 'wrap',
+            properties: {
+                className: ['heading-anchor']
+            }
+        })
+        .use(rehypeExternalLinks, {  // 外部リンクの安全な処理
+            target: '_blank',
+            rel: ['noopener', 'noreferrer']
+        })
         .use(rehypePrism, {ignoreMissing: true})
         .use(rehypeSanitize)
         .use(rehypeStringify)
