@@ -29,16 +29,19 @@ export async function markdownToHtml(markdown: string): Promise<string> {
         }
     };
 
+    // プラグインの順序が重要:
+    // 1. remarkプラグインでMarkdownを解析・変換
+    // 2. remarkRehypeでHTMLに変換
+    // 3. 属性を追加するrehypeプラグイン（rehypeSlug, rehypeAutolinkHeadings, rehypeExternalLinks, rehypePrism）
+    // 4. rehypeSanitizeでサニタイズ（追加された属性を保持するためカスタムスキーマを使用）
+    // 5. rehypeStringifyでHTML文字列に変換
     const result = await unified()
         .use(remarkParse)
         .use(remarkGfm)  // GitHub Flavored Markdown（テーブル、タスクリストなど）
         .use(remarkRehype)
         .use(rehypeSlug)  // 見出しにIDを追加（アンカーリンク用）
         .use(rehypeAutolinkHeadings, {  // 見出しにリンクを追加
-            behavior: 'wrap',
-            properties: {
-                className: ['heading-anchor']
-            }
+            behavior: 'wrap'
         })
         .use(rehypeExternalLinks, {  // 外部リンクの安全な処理
             target: '_blank',
