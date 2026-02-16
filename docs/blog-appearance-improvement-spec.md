@@ -327,23 +327,30 @@ Reactコンポーネントでは`dangerouslySetInnerHTML`を使用してHTMLを�
 
 #### 4.2.3 コードブロックの機能強化
 
-```typescript
-// ファイル名表示のサポート
+以下の機能は標準のrehype-prism-plusではサポートされていないため、カスタムプラグインの開発が必要です：
+
+**ファイル名表示のサポート（カスタム実装が必要）**
+```markdown
 ```typescript:src/example.ts
 const example = "コードブロックにファイル名を表示";
 ```
 ```
 
+**行番号表示（CSSベースまたはカスタム実装が必要）**
 ```typescript
-// 行番号表示
-.use(rehypePrism, {
-    ignoreMissing: true,
-    showLineNumbers: true  // 行番号を表示
-})
+// CSSベースのソリューション例
+// カウンターを使用して行番号を表示
+.code-block {
+    counter-reset: line;
+}
+.code-block .line::before {
+    counter-increment: line;
+    content: counter(line);
+}
 ```
 
-```typescript
-// 行ハイライト
+**行ハイライト（カスタム実装が必要）**
+```markdown
 ```typescript {2,4-6}
 const line1 = "通常の行";
 const line2 = "ハイライトされた行";
@@ -353,6 +360,11 @@ const line5 = "ハイライトされた行";
 const line6 = "ハイライトされた行";
 ```
 ```
+
+これらの機能を実装する場合は、以下のアプローチが考えられます：
+- カスタムremarkプラグインの作成
+- 既存のコミュニティプラグインの利用（例：rehype-pretty-code、remark-code-titlesなど）
+- クライアントサイドJavaScriptによる後処理
 
 #### 4.2.4 画像の最適化
 
@@ -377,10 +389,11 @@ import remarkToc from 'remark-toc';
 
 ```typescript
 // 記事の文字数から読了時間を推定して表示
+const JAPANESE_READING_SPEED = 600; // 日本語の平均的な読書速度（文字/分）
+
 function estimateReadingTime(content: string): number {
-    const charactersPerMinute = 600; // 日本語の平均的な読書速度（文字/分）
     const characterCount = content.length;
-    return Math.ceil(characterCount / charactersPerMinute);
+    return Math.ceil(characterCount / JAPANESE_READING_SPEED);
 }
 ```
 
