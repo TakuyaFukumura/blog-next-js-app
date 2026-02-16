@@ -159,9 +159,10 @@ H6: 1rem (16px) - font-semibold - line-height: 1.5 - mt-4 mb-2
 
 #### 実装例
 ```tsx
-prose-h1:text-4xl prose-h1:font-extrabold prose-h1:mb-6
-prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-200 dark:prose-h2:border-gray-700 prose-h2:pb-2
-prose-h3:text-2xl prose-h3:font-bold prose-h3:mt-8 prose-h3:mb-3
+prose-h1:text-4xl prose-h1:font-extrabold prose-h1:mb-6 prose-h1:text-gray-900 dark:prose-h1:text-white
+prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-200 dark:prose-h2:border-gray-700 prose-h2:pb-2 prose-h2:text-gray-800 dark:prose-h2:text-gray-100
+prose-h3:text-2xl prose-h3:font-bold prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-gray-800 dark:prose-h3:text-gray-100
+prose-h4:text-xl prose-h4:font-semibold prose-h4:mt-6 prose-h4:mb-2 prose-h4:text-gray-700 dark:prose-h4:text-gray-200
 ```
 
 ### 4.2 段落テキスト (Paragraphs)
@@ -191,8 +192,8 @@ prose-h3:text-2xl prose-h3:font-bold prose-h3:mt-8 prose-h3:mb-3
 
 #### 実装例
 ```tsx
-prose-ul:ml-6 prose-ul:space-y-2 prose-ul:marker:text-blue-600 dark:prose-ul:marker:text-blue-400
-prose-ol:ml-6 prose-ol:space-y-2 prose-ol:marker:text-blue-600 dark:prose-ol:marker:text-blue-400 prose-ol:marker:font-semibold
+prose-ul:list-disc prose-ul:ml-6 prose-ul:space-y-2 prose-ul:marker:text-blue-600 dark:prose-ul:marker:text-blue-400
+prose-ol:list-decimal prose-ol:ml-6 prose-ol:space-y-2 prose-ol:marker:text-blue-600 dark:prose-ol:marker:text-blue-400 prose-ol:marker:font-semibold
 prose-li:text-gray-700 dark:prose-li:text-gray-300
 ```
 
@@ -205,7 +206,7 @@ prose-li:text-gray-700 dark:prose-li:text-gray-300
 - 幅: `w-full`
 
 ##### テーブルヘッダー (thead/th)
-- 背景: `bg-gray-100 dark:bg-gray-700`（グラデーション検討）
+- 背景: `bg-gray-100 dark:bg-gray-800`（最も強調 - ダークモードで最暗）
 - テキスト色: `text-gray-900 dark:text-white`
 - 太さ: `font-bold`
 - 整列: `text-left`
@@ -214,20 +215,22 @@ prose-li:text-gray-700 dark:prose-li:text-gray-300
 
 ##### テーブルボディ (tbody/td)
 - 背景: 
-  - 奇数行: `bg-white dark:bg-gray-800`
+  - 奇数行: `bg-white dark:bg-gray-700`
   - 偶数行: `bg-gray-50 dark:bg-gray-600`（ストライプ - コントラスト重視）
 - テキスト色: `text-gray-700 dark:text-gray-300`
 - パディング: `px-4 py-3`
 - ボーダー: `border-b border-gray-200 dark:border-gray-700`
-- ホバー: `hover:bg-gray-100 dark:hover:bg-gray-700`（行全体）
+- ホバー: `hover:bg-gray-100 dark:hover:bg-gray-500`（行全体）
 
 #### 実装例
 ```tsx
-prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden
-prose-thead:bg-gray-100 dark:prose-thead:bg-gray-700
+prose-table:block prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden
+prose-thead:bg-gray-100 dark:prose-thead:bg-gray-800
 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-bold prose-th:text-gray-900 dark:prose-th:text-white prose-th:border-b-2 prose-th:border-gray-300 dark:prose-th:border-gray-600
+prose-tbody:prose-tr:bg-white dark:prose-tbody:prose-tr:bg-gray-700
 prose-tr:border-b prose-tr:border-gray-200 dark:prose-tr:border-gray-700
 prose-tr:even:bg-gray-50 dark:prose-tr:even:bg-gray-600
+prose-tbody:prose-tr:hover:bg-gray-100 dark:prose-tbody:prose-tr:hover:bg-gray-500
 prose-td:px-4 prose-td:py-3 prose-td:text-gray-700 dark:prose-td:text-gray-300
 ```
 
