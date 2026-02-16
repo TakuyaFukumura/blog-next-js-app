@@ -330,6 +330,8 @@ Reactコンポーネントでは`dangerouslySetInnerHTML`を使用してHTMLを�
 以下の機能は標準のrehype-prism-plusではサポートされていないため、カスタムプラグインの開発が必要です：
 
 **ファイル名表示のサポート（カスタム実装が必要）**
+
+以下は実装したい記法の例です（標準Markdownではサポートされていません）：
 ```markdown
 ```typescript:src/example.ts
 const example = "コードブロックにファイル名を表示";
@@ -389,7 +391,9 @@ import remarkToc from 'remark-toc';
 
 ```typescript
 // 記事の文字数から読了時間を推定して表示
-const JAPANESE_READING_SPEED = 600; // 日本語の平均的な読書速度（文字/分）
+// 日本語の平均的な読書速度は400-600文字/分と幅があるため、
+// ここでは中間値の600文字/分を採用（調整可能）
+const JAPANESE_READING_SPEED = 600; // 文字/分
 
 function estimateReadingTime(content: string): number {
     const characterCount = content.length;
