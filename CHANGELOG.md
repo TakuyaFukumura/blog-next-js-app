@@ -7,6 +7,33 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-02-16
+
+### 追加
+
+- Markdownの表示機能を大幅に拡張
+    - GitHub Flavored Markdown（GFM）のサポート（テーブル、タスクリストなど）
+    - 見出しへの自動アンカーリンク機能（ページ内ナビゲーションが容易に）
+    - 外部リンクの安全な処理（`target="_blank"`と`rel="noopener noreferrer"`を自動付与）
+    - テーブル表示のスタイリング（ライト/ダークモード対応）
+- 新しいパッケージの追加
+    - `remark-gfm`: GitHub Flavored Markdown対応
+    - `rehype-slug`: 見出しにID属性を追加
+    - `rehype-autolink-headings`: 見出しに自動リンクを追加
+    - `rehype-external-links`: 外部リンクの安全な処理
+
+### 変更
+
+- `rehype-sanitize`の設定をカスタマイズし、外部リンクの`target`と`rel`属性を許可
+
+### セキュリティ
+
+- 外部リンクに`rel="noopener noreferrer"`を自動付与し、セキュリティリスクを低減
+
+### 削除
+
+- ブログ記事の見た目改善仕様書（`docs/blog-appearance-improvement-spec.md`）を削除
+
 ## [0.3.0] - 2026-02-14
 
 ### 削除
@@ -105,7 +132,9 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.3.0...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.4.0...HEAD
+
+[0.4.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.3.0...v0.4.0
 
 [0.3.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.2.1...v0.3.0
 
@@ -114,4 +143,5 @@
 [0.2.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...v0.2.0
 
 [0.1.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0^...v0.1.0
+
 
