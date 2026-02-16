@@ -215,7 +215,7 @@ prose-li:text-gray-700 dark:prose-li:text-gray-300
 ##### テーブルボディ (tbody/td)
 - 背景: 
   - 奇数行: `bg-white dark:bg-gray-800`
-  - 偶数行: `bg-gray-50 dark:bg-gray-700`（ストライプ）
+  - 偶数行: `bg-gray-50 dark:bg-gray-600`（ストライプ - コントラスト重視）
 - テキスト色: `text-gray-700 dark:text-gray-300`
 - パディング: `px-4 py-3`
 - ボーダー: `border-b border-gray-200 dark:border-gray-700`
@@ -227,7 +227,7 @@ prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-tab
 prose-thead:bg-gray-100 dark:prose-thead:bg-gray-700
 prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-bold prose-th:text-gray-900 dark:prose-th:text-white prose-th:border-b-2 prose-th:border-gray-300 dark:prose-th:border-gray-600
 prose-tr:border-b prose-tr:border-gray-200 dark:prose-tr:border-gray-700
-prose-tr:even:bg-gray-50 dark:prose-tr:even:bg-gray-700
+prose-tr:even:bg-gray-50 dark:prose-tr:even:bg-gray-600
 prose-td:px-4 prose-td:py-3 prose-td:text-gray-700 dark:prose-td:text-gray-300
 ```
 
