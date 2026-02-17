@@ -26,7 +26,7 @@ export default function MarkdownContent({content}: MarkdownContentProps) {
         prose-ol:list-decimal prose-ol:ml-6 prose-ol:space-y-2 prose-ol:marker:text-blue-600 dark:prose-ol:marker:text-blue-400 prose-ol:marker:font-semibold
         prose-li:text-gray-700 dark:prose-li:text-gray-300
         prose-blockquote:border-l-4 prose-blockquote:border-blue-500 dark:prose-blockquote:border-blue-400 prose-blockquote:bg-blue-50 dark:prose-blockquote:bg-blue-950/20 prose-blockquote:pl-4 prose-blockquote:py-3 prose-blockquote:pr-4 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300
-        prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-hidden prose-table:overflow-x-auto prose-table:border-separate prose-table:border-spacing-0
+        prose-table:w-full prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-table:rounded-lg prose-table:shadow-md prose-table:overflow-x-auto prose-table:border-separate prose-table:border-spacing-0
         prose-thead:bg-gray-100 dark:prose-thead:bg-gray-800
         prose-th:px-4 prose-th:py-3 prose-th:text-left prose-th:font-bold prose-th:text-gray-900 dark:prose-th:text-white prose-th:border-b-2 prose-th:border-gray-300 dark:prose-th:border-gray-600
         prose-tbody:prose-tr:bg-white dark:prose-tbody:prose-tr:bg-gray-700
