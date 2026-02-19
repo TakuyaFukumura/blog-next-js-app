@@ -113,7 +113,7 @@ export default async function BlogPost({params}: BlogPostPageProps) {
                         </div>
                     </header>
 
-                    <div className="px-8 py-12">
+                    <div className="px-8 py-12 markdown-body">
                         <MarkdownContent content={htmlContent}/>
                     </div>
                 </article>
