@@ -27,43 +27,44 @@ body {
 
 /* --- markdown-body base --- */
 .markdown-body {
-  color: #22223b;
+  color: #334155;
   background: transparent;
-  font-family: 'Segoe UI', 'Hiragino Sans', 'Meiryo', sans-serif;
-  line-height: 1.8;
+  font-family: 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  line-height: 1.85;
   font-size: 1.05rem;
   word-break: break-word;
 }
 
 .markdown-body h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin: 2.2rem 0 1.2rem 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 2.4rem 0 1.2rem 0;
   line-height: 1.2;
 }
 .markdown-body h2 {
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: #22223b;
-  margin: 2rem 0 1rem 0;
-  line-height: 1.3;
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 0.3em;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 2.2rem 0 1rem 0;
+  line-height: 1.25;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.35em;
 }
 .markdown-body h3 {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  color: #3b4252;
-  margin: 1.5rem 0 0.7rem 0;
-  line-height: 1.4;
+  color: #1e293b;
+  margin: 1.8rem 0 0.75rem 0;
+  line-height: 1.35;
 }
 
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
   font-weight: 600;
-  margin: 1.2rem 0 0.5rem 0;
+  color: #1e293b;
+  margin: 1.4rem 0 0.5rem 0;
 }
 
 .markdown-body p {
@@ -74,7 +75,7 @@ body {
   color: #2563eb;
   text-decoration: underline;
   word-break: break-all;
-  transition: color 0.2s;
+  transition: color 0.15s;
 }
 .markdown-body a:hover {
   color: #1e40af;
@@ -106,11 +107,11 @@ body {
 
 .markdown-body blockquote {
   border-left: 4px solid #3b82f6;
-  background: #f0f6ff;
-  color: #374151;
+  background: #eff6ff;
+  color: #475569;
   padding: 1em 1.5em;
   margin: 1.5em 0;
-  border-radius: 0.5em;
+  border-radius: 0.4em;
   font-style: italic;
 }
 
@@ -119,37 +120,37 @@ body {
   border-collapse: collapse;
   margin: 1.5em 0;
   font-size: 1em;
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #e2e8f0;
 }
 .markdown-body th,
 .markdown-body td {
-  border: 1px solid #e5e7eb;
-  padding: 0.6em 1em;
+  border: 1px solid #e2e8f0;
+  padding: 0.65em 1em;
 }
 .markdown-body thead th {
-  background: #f3f4f6;
+  background: #f1f5f9;
   font-weight: 700;
+  color: #0f172a;
 }
 
 .markdown-body code {
-  background: #f3f4f6;
-  color: #b45309;
+  background: #f1f5f9;
+  color: #be123c;
   border-radius: 4px;
   padding: 0.2em 0.5em;
   font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
-  font-size: 0.97em;
+  font-size: 0.95em;
 }
 
 .markdown-body pre {
-  background: #f3f4f6;
-  color: #1e293b;
-  border-radius: 0.5em;
-  padding: 1em;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 0.6em;
+  padding: 1.2em;
   overflow-x: auto;
   font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
   margin: 1.5em 0;
-  font-size: 0.98em;
+  font-size: 0.95rem;
 }
 .markdown-body pre code {
   background: none;
@@ -161,7 +162,7 @@ body {
 
 /* --- ダークモード --- */
 .dark .markdown-body {
-  color: #e5e7eb;
+  color: #cbd5e1;
   background: transparent;
 }
 .dark .markdown-body h1,
@@ -170,50 +171,53 @@ body {
 .dark .markdown-body h4,
 .dark .markdown-body h5,
 .dark .markdown-body h6 {
-  color: #f3f4f6;
+  color: #f8fafc;
+}
+.dark .markdown-body h2 {
+  border-bottom-color: #334155;
 }
 .dark .markdown-body a {
   color: #60a5fa;
 }
 .dark .markdown-body a:hover {
-  color: #3b82f6;
+  color: #93c5fd;
 }
 .dark .markdown-body blockquote {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-left: 4px solid #60a5fa;
+  background: rgba(30, 58, 138, 0.3);
+  color: #94a3b8;
+  border-left-color: #3b82f6;
 }
 .dark .markdown-body table {
-  background: #23272e;
-  border-color: #374151;
+  border-color: #334155;
 }
 .dark .markdown-body th,
 .dark .markdown-body td {
-  border-color: #374151;
+  border-color: #334155;
 }
 .dark .markdown-body thead th {
   background: #1e293b;
+  color: #f8fafc;
 }
 .dark .markdown-body code {
-  background: #23272e;
-  color: #fbbf24;
+  background: #1e293b;
+  color: #fb7185;
 }
 .dark .markdown-body pre {
-  background: #23272e;
-  color: #e5e7eb;
+  background: #020617;
+  color: #e2e8f0;
 }
 
 /* --- その他微調整 --- */
 .markdown-body img {
   max-width: 100%;
-  border-radius: 0.3em;
-  margin: 1em 0;
+  border-radius: 0.4em;
+  margin: 1.2em 0;
 }
 .markdown-body hr {
   border: none;
-  border-top: 1px solid #e5e7eb;
-  margin: 2em 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 2.5em 0;
 }
 .dark .markdown-body hr {
-  border-top: 1px solid #374151;
+  border-top: 1px solid #334155;
 }
