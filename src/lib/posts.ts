@@ -81,7 +81,7 @@ export function getPostBySlug(slug: string): Post | null {
     const metadata = data as PostMetadata;
 
     // published が明示的に false の場合は null を返す
-    if (metadata.published === false) {
+    if (!metadata.published) {
         return null;
     }
 
@@ -93,7 +93,7 @@ export function getPostBySlug(slug: string): Post | null {
         tags: Array.isArray(metadata.tags) ? metadata.tags : [],
         description: metadata.description || '',
         image: metadata.image,
-        published: metadata.published === undefined ? true : metadata.published,
+        published: metadata.published,
         content,
     };
 }
@@ -109,7 +109,7 @@ export function getAllPosts(): PostPreview[] {
 
     const files = fs.readdirSync(postsDirectory);
 
-    const posts = files
+    return files
         .filter((file) => file.endsWith('.md'))
         .map((file) => {
             const fileName = file.replace(/\.md$/, '');
@@ -122,7 +122,7 @@ export function getAllPosts(): PostPreview[] {
             const metadata = data as PostMetadata;
 
             // 公開フラグが false の記事は除外
-            if (metadata.published === false) {
+            if (!metadata.published) {
                 return null;
             }
 
@@ -134,7 +134,7 @@ export function getAllPosts(): PostPreview[] {
                 tags: Array.isArray(metadata.tags) ? metadata.tags : [],
                 description: metadata.description || '',
                 image: metadata.image,
-                published: metadata.published === undefined ? true : metadata.published,
+                published: metadata.published,
             };
 
             return preview;
@@ -144,8 +144,6 @@ export function getAllPosts(): PostPreview[] {
             // 日付の降順でソート
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
-
-    return posts;
 }
 
 /**
