@@ -137,9 +137,8 @@ blog-next-js-app/
 ├── src/                       # ソースコード
 │   ├── app/                  # App Router ディレクトリ
 │   │   ├── blog/
-│   │   │   ├── [slug]/
-│   │   │   │   └── page.tsx  # 動的ルート: 記事詳細ページ
-│   │   │   └── page.tsx      # 記事一覧リダイレクト
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx  # 動的ルート: 記事詳細ページ
 │   │   ├── components/       # Reactコンポーネント
 │   │   │   ├── BlogCard.tsx  # 記事カード
 │   │   │   ├── BlogList.tsx  # 記事一覧
@@ -266,10 +265,6 @@ export interface PostPreview extends PostMetadata {
 - Markdownコンテンツのレンダリング
 - 戻るリンク
 - 記事メタデータ（タイトル、日付、著者、タグ）の表示
-
-#### `blog/page.tsx` - リダイレクト
-
-後方互換性のため、`/blog`を`/`にリダイレクトします。
 
 ### 4. UIコンポーネント（`src/app/components/`）
 
