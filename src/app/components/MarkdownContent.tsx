@@ -1,5 +1,5 @@
 interface MarkdownContentProps {
-    content: string;
+    readonly content: string;
 }
 
 /**

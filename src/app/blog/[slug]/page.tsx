@@ -6,8 +6,8 @@ import {notFound} from 'next/navigation';
 import Link from 'next/link';
 
 interface BlogPostPageProps {
-    params: {
-        slug: string;
+    readonly params: {
+        readonly slug: string;
     };
 }
 
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
  * メタデータを生成
  */
 export async function generateMetadata({params}: BlogPostPageProps): Promise<Metadata> {
-    const {slug} = await params;
+    const {slug} = params;
     const post = getPostBySlug(slug);
 
     if (!post) {
@@ -45,7 +45,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
  * ブログ記事詳細ページ
  */
 export default async function BlogPost({params}: BlogPostPageProps) {
-    const {slug} = await params;
+    const {slug} = params;
     const post = getPostBySlug(slug);
 
     if (!post) {
@@ -55,7 +55,7 @@ export default async function BlogPost({params}: BlogPostPageProps) {
     const htmlContent = await markdownToHtml(post.content);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+        <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* 戻るリンク */}
                 <div className="mb-8">

@@ -2,7 +2,7 @@ import {PostPreview} from '@/types/post';
 import BlogCard from './BlogCard';
 
 interface BlogListProps {
-    posts: PostPreview[];
+    readonly posts: PostPreview[];
 }
 
 /**

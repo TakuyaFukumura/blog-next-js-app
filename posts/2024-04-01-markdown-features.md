@@ -15,20 +15,20 @@ published: true
 
 GitHub Flavored Markdown（GFM）により、テーブルが使えるようになりました。
 
-| 機能 | 説明 | 優先度 |
-|------|------|--------|
-| remark-gfm | テーブル、タスクリストのサポート | 高 |
-| rehype-slug | 見出しにID属性を追加 | 高 |
-| rehype-autolink-headings | 見出しに自動リンクを追加 | 高 |
-| rehype-external-links | 外部リンクの安全な処理 | 中 |
+| 機能                       | 説明               | 優先度 |
+|--------------------------|------------------|-----|
+| remark-gfm               | テーブル、タスクリストのサポート | 高   |
+| rehype-slug              | 見出しにID属性を追加      | 高   |
+| rehype-autolink-headings | 見出しに自動リンクを追加     | 高   |
+| rehype-external-links    | 外部リンクの安全な処理      | 中   |
 
 ### パッケージのバージョン情報
 
-| パッケージ | バージョン | 用途 |
-|-----------|-----------|------|
-| unified | ^11.0.5 | Markdownパイプライン処理のコア |
-| remark-gfm | ^4.0.1 | GitHub Flavored Markdown対応 |
-| rehype-slug | ^6.0.0 | 見出しアンカー機能 |
+| パッケージ       | バージョン   | 用途                         |
+|-------------|---------|----------------------------|
+| unified     | ^11.0.5 | Markdownパイプライン処理のコア        |
+| remark-gfm  | ^4.0.1  | GitHub Flavored Markdown対応 |
+| rehype-slug | ^6.0.0  | 見出しアンカー機能                  |
 
 ## 外部リンク
 

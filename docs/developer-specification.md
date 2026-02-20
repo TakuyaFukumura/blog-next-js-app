@@ -308,7 +308,7 @@ export function useDarkMode() {
 
 ```typescript
 interface BlogListProps {
-  posts: PostPreview[];
+    posts: PostPreview[];
 }
 ```
 
@@ -325,7 +325,7 @@ interface BlogListProps {
 
 ```typescript
 interface BlogCardProps {
-  post: PostPreview;
+    post: PostPreview;
 }
 ```
 
@@ -344,7 +344,7 @@ HTMLに変換されたMarkdownコンテンツを表示します。
 
 ```typescript
 interface MarkdownContentProps {
-  content: string;  // HTML文字列
+    content: string;  // HTML文字列
 }
 ```
 
