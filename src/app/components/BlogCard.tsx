@@ -2,7 +2,7 @@ import Link from 'next/link';
 import {PostPreview} from '@/types/post';
 
 interface BlogCardProps {
-    post: PostPreview;
+    readonly post: PostPreview;
 }
 
 /**
