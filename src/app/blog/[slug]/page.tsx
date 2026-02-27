@@ -6,9 +6,9 @@ import {notFound} from 'next/navigation';
 import Link from 'next/link';
 
 interface BlogPostPageProps {
-    readonly params: {
+    readonly params: Promise<{
         readonly slug: string;
-    };
+    }>;
 }
 
 /**
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
  * メタデータを生成
  */
 export async function generateMetadata({params}: BlogPostPageProps): Promise<Metadata> {
-    const {slug} = params;
+    const {slug} = await params;
     const post = getPostBySlug(slug);
 
     if (!post) {
@@ -45,7 +45,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
  * ブログ記事詳細ページ
  */
 export default async function BlogPost({params}: BlogPostPageProps) {
-    const {slug} = params;
+    const {slug} = await params;
     const post = getPostBySlug(slug);
 
     if (!post) {
@@ -60,7 +60,7 @@ export default async function BlogPost({params}: BlogPostPageProps) {
                 {/* 戻るリンク */}
                 <div className="mb-8">
                     <Link
-                        href="/blog"
+                        href="/"
                         className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline"
                     >
                         <svg
