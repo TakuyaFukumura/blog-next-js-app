@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-02-27
+
+### 修正
+
+- ブログ記事を開くと404になる不具合を修正
+    - Next.js 15以降で`params`が非同期（Promise）になった変更に対応
+    - `src/app/blog/[slug]/page.tsx`の`generateMetadata`と`BlogPost`コンポーネントで`await params`を使用するよう修正
+    - 記事詳細ページの「記事一覧に戻る」リンクを`/blog`から`/`に修正（v0.7.0でリダイレクト削除後に404になっていた）
+
 ## [0.7.0] - 2026-02-20
 
 ### 変更
@@ -185,7 +194,13 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.5.0...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.1...HEAD
+
+[0.7.1]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.0...v0.7.1
+
+[0.7.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.6.0...v0.7.0
+
+[0.6.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.5.0...v0.6.0
 
 [0.5.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.4.0...v0.5.0
 
