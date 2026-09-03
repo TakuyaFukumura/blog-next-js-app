@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [0.7.3] - 2026-09-03
+
+### 変更
+
+- テーマ切り替えボタンのモード名ラベルを削除し、アイコンのみの表示に変更
+
 ## [0.7.2] - 2026-09-03
 
 ### 修正
@@ -200,7 +206,9 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.1...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.3...HEAD
+
+[0.7.3]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.2...v0.7.3
 
 [0.7.1]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.0...v0.7.1
 
@@ -219,4 +227,3 @@
 [0.2.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...v0.2.0
 
 [0.1.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0^...v0.1.0
-
