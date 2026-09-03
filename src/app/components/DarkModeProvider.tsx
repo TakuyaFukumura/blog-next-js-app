@@ -1,6 +1,6 @@
 'use client';
 
-import {createContext, ReactNode, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, ReactNode, useContext, useEffect, useMemo, useState, useTransition} from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -13,15 +13,17 @@ interface DarkModeContextType {
 const DarkModeContext = createContext<DarkModeContextType | undefined>(undefined);
 
 export function DarkModeProvider({children}: { readonly children: ReactNode }) {
-    const [theme, setTheme] = useState<Theme>(() => {
-        if (globalThis.window === undefined) {
-            return 'light';
-        }
-
-        const savedTheme = localStorage.getItem('theme');
-        return savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'light';
-    });
+    // Keep the server and first client render identical; restore the saved theme after hydration.
+    const [theme, setTheme] = useState<Theme>('light');
+    const [, startTransition] = useTransition();
     const isDark = theme === 'dark';
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            startTransition(() => setTheme(savedTheme));
+        }
+    }, [startTransition]);
 
     useEffect(() => {
         // HTMLタグにdarkクラスを追加/削除
