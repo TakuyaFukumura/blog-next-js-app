@@ -22,14 +22,6 @@ export default function Header() {
         }
     };
 
-    const getThemeLabel = () => {
-        if (theme === 'light') {
-            return 'ライトモード';
-        } else {
-            return 'ダークモード';
-        }
-    };
-
     return (
         <header
             className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b
@@ -50,10 +42,9 @@ export default function Header() {
                             className="flex items-center gap-2 px-3 py-2 text-sm font-medium
                             text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700
                             rounded-lg transition-colors duration-200"
-                            title={`現在: ${getThemeLabel()}`}
+                            aria-label="テーマを切り替える"
                         >
                             <span className="text-lg">{getThemeIcon()}</span>
-                            <span className="hidden sm:inline">{getThemeLabel()}</span>
                         </button>
                     </div>
                 </div>
@@ -61,4 +52,3 @@ export default function Header() {
         </header>
     );
 }
-
