@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [0.7.2] - 2026-09-03
+
+### 修正
+
+- ダークモード設定の復元時に発生するHydration mismatchを修正
+
 ## [0.7.1] - 2026-02-27
 
 ### 修正
@@ -213,5 +219,4 @@
 [0.2.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0...v0.2.0
 
 [0.1.0]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.1.0^...v0.1.0
-
 
