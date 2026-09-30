@@ -7,6 +7,12 @@
 
 ## [Unreleased]
 
+## [0.7.4] - 2026-10-01
+
+### 修正
+
+- Vercelのデプロイ対象を`main`ブランチのみに制限
+
 ## [0.7.3] - 2026-09-03
 
 ### 変更
@@ -206,7 +212,9 @@
 
 - better-sqlite3による安全なデータベース操作
 
-[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.3...HEAD
+[unreleased]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.4...HEAD
+
+[0.7.4]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.3...v0.7.4
 
 [0.7.3]: https://github.com/TakuyaFukumura/blog-next-js-app/compare/v0.7.2...v0.7.3
 
